@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,13 @@ public class OrderController {
 	public @NotNull Iterable<Order> listByUser(HttpServletRequest req) {
 		return this.orderService.getAllOrdersByUser(req);
 	}
+	
+	@GetMapping("/{id}")
+	@ApiOperation(value = "${OrderController.getById}", response = Order.class, responseContainer = "List", authorizations = {
+			@Authorization(value = "apiKey") })
+	public Order getById(@PathVariable Integer id, HttpServletRequest req) {
+		return this.orderService.getOrderById(id, req);
+	}
 
 	@GetMapping("/all")
 	@ResponseStatus(HttpStatus.OK)
@@ -85,12 +93,7 @@ public class OrderController {
 
 		this.orderService.update(order);
 
-		String uri = ServletUriComponentsBuilder.fromCurrentServletMapping().path("/orders/{id}")
-				.buildAndExpand(order.getId()).toString();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", uri);
-
-		return new ResponseEntity<>(order, headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(order, HttpStatus.CREATED);
 	}
 
 	@PostMapping("/pay")
