@@ -27,22 +27,26 @@ Uso API
 	- Lista ordenes por usuario (GET: http://localhost:8080/api/orders/)
 	- Buscar orden de usuario por id (GET http://localhost:8080/api/orders/{id})
 
-
--Java Version 11
--Database: H2
-	- jdb url: jdbc:h2:mem:test_db
-	- username: root
-	- password: root
-
 **Endpoints:** 
 
-- H2 console: http://localhost:8080/h2-console
 - API Swagger definition:  http://localhost:8080/v2/api-docs
 - Actuator Health: http://localhost:8080/actuator/health
 - User: http://localhost:8080/api/users
 - Produucts:  http://localhost:8080/api/products
 - Orders: http://localhost:8080/api/orders
 - Favorites: http://localhost:8080/api/favorites
+
+**Tecnologías Usadas**
+- Java Version 11
+- H2 Database
+- SpringBoot
+- JWT
+
+**Acceso a base de datos**
+- H2 console: http://localhost:8080/h2-console
+- jdb url: jdbc:h2:mem:test_db
+- username: root
+- password: root
 
 **Pasos creación ambiente**
 
