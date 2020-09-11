@@ -1,5 +1,8 @@
 package com.falvarez.marketplace.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.falvarez.marketplace.exception.CustomException;
+import com.falvarez.marketplace.model.Role;
 import com.falvarez.marketplace.model.User;
 import com.falvarez.marketplace.repository.UserRepository;
 import com.falvarez.marketplace.security.JwtTokenProvider;
@@ -48,6 +52,9 @@ public class UserServiceImpl implements IUserService {
 	public String signup(User user, HttpServletRequest req) {
 		if (!userRepository.existsByUsername(user.getUsername())) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			List<Role> roles = new ArrayList<Role>();
+			roles.add(Role.ROLE_CLIENT);
+			user.setRoles(roles);
 			userRepository.save(user);
 			return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
 		} else {
