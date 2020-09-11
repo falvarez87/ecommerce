@@ -18,8 +18,6 @@ import com.falvarez.marketplace.repository.UserRepository;
 import com.falvarez.marketplace.security.JwtTokenProvider;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -89,19 +87,6 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		_order.setStatus(OrderStatus.PENDING.name());
 		this.orderRepository.save(_order);
-		double value = _order.getTotalOrderPrice();
-		String privKey = "xprv9s21ZrQH143K3gDpsR83Yd9sLC4WxuxzNMoBjfdj4sjmLQyZTv7TYn9SRbBKyzcY6Dx9eUH6hfjLk14yNb6RtNpSHrgKaxYkRFBUrzKUuxn";
-		Map<Boolean, String> resultTrx = bitcoinService.SendCoin(privKey, String.valueOf(value));
-		for (Entry<Boolean, String> entry : resultTrx.entrySet()) {
-			Boolean valid = entry.getKey();
-			String message = entry.getValue();
-			if (valid) {
-				_order.setStatus(OrderStatus.PAID.name());
-				this.orderRepository.save(_order);
-			} else {
-				throw new CustomException("BTC-001", message, HttpStatus.FAILED_DEPENDENCY, req.getSession().getId());
-			}
-		}
 		return _order;
 	}
 
