@@ -63,3 +63,8 @@ También si se desea despues de generar el package y si se quiere ejecutar el ja
 **Postman Collection**
 
 En la raiz del proyecto se encuentra el archivo ecommerce.postman_collection.json el cual se puede importar en postman y cuenta con todos los request para pruebas
+
+
+**Notas**
+
+Este desarollo en esta rama esta inconcluso debido a que la integración con bitcoin no se pudo terminar debido a que se debía cerar una wallet y agregar una existente, lo cual no se pudo culminar por que al momento de hacer el envío  a otra address siempre indicaba que no había saldo cuando si existía
