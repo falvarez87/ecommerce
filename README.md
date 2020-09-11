@@ -59,3 +59,7 @@ Uso API
 	- Run Countainer: docker run  -d --name marketplace -p 8080:8080 marketplace:v1
 	
 También si se desea despues de generar el package y si se quiere ejecutar el jar sin levantar un contenedor, se pueden dirigir a la carpeta target y ejecutar: java -jar marketplace-1.0.0.jar 
+
+**Postman Collection**
+
+En la raiz del proyecto se encuentra el archivo ecommerce.postman_collection.json el cual se puede importar en postman y cuenta con todos los request para pruebas
